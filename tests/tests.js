@@ -1,5 +1,6 @@
 module("Main Model", {
     setup: function() {
+        this.testDOM = $('#qunit-fixture ul.gallery');
     }
 });
 
@@ -8,7 +9,27 @@ test("When creating a new empty Gallery viewmodel", function() {
     var scrollable = Gallery.scrollable;
 
     equal(Gallery.itemsObservables().length, 0, "there should be no values in itemsObservables");
+    equal(Gallery.selectedItem(), undefined, "selected item should be undefined");
+});
 
+test("When initialising content in Gallery viewmodel", function() {
+    var Gallery = new site.models.Gallery();
+    var scrollable = Gallery.scrollable;
+
+    Gallery.init(this.testDOM.find('li img'));
+
+    equal(Gallery.itemsObservables().length, 8, "there should be 8 values in itemsObservables");
+    equal(Gallery.selectedItem(), 0, "the first item should be selected");
+});
+
+test("When directly selecting an item in a Gallery viewmodel", function() {
+    var Gallery = new site.models.Gallery();
+    var scrollable = Gallery.scrollable;
+
+    Gallery.init(this.testDOM.find('li img'));
+    Gallery.selectedItem(1);
+
+    equal(Gallery.selectedItem(), 1, "the second item should be selected");
 });
 
 module("Scrollable Area View Model", {

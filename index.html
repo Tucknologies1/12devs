@@ -9,6 +9,35 @@
 </head>
 <body>
 
+<h1>Using Knockout</h1>
+<h2>Data-bound gallery component</h2>
+
+<div>
+    
+    <ul class="gallery">
+        <li class="selected"><a href="#"><img src="img/1.jpg" width="800" height="533" alt="Image 1 Caption" /></a></li>
+        <li><a href="#"><img src="img/2.jpg" width="800" height="533" alt="Image 2 Caption" /></a></li>
+        <li><a href="#"><img src="img/3.jpg" width="800" height="533" alt="Image 3 Caption" /></a></li>
+        <li><a href="#"><img src="img/4.jpg" width="800" height="533" alt="Image 4 Caption" /></a></li>
+        <li><a href="#"><img src="img/5.jpg" width="800" height="533" alt="Image 5 Caption" /></a></li>
+        <li><a href="#"><img src="img/6.jpg" width="800" height="533" alt="Image 6 Caption" /></a></li>
+        <li><a href="#"><img src="img/7.jpg" width="800" height="533" alt="Image 7 Caption" /></a></li>
+        <li><a href="#"><img src="img/8.jpg" width="800" height="533" alt="Image 8 Caption" /></a></li>
+    </ul>
+
+    <div class="controller">
+        <ul data-bind="foreach: itemsObservables, style: { 'width': scrollable.contentSize() + 'px' }">
+            <li data-bind="css: { 'selected': isSelected }, click: $parent.select">
+                <img data-bind="attr: { 'src': src}" width="100%" />
+                <span data-bind="text: caption"></span>
+            </li>
+        </ul>
+        <button data-bind="enable: scrollable.canScrollLeft, click: scrollable.scrollContent" data-direction="left">&laquo;</button>
+        <button data-bind="enable: scrollable.canScrollRight, click: scrollable.scrollContent" data-direction="right">&raquo;</button>
+    </div>
+
+</div>
+
 
 
 <script src="lib/jquery-1.7.1.min.js"></script>

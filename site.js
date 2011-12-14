@@ -1,16 +1,60 @@
 // create namespace
 var site = { models: { } };
 
-
 // define Gallery viewmodel
 site.models.Gallery = function() {
     // create self reference for use inside functions
     var self = this;
 
     this.itemsObservables = ko.observableArray();
+    this.selectedItem = ko.observable();
+
+    // create a subscribe to selectedItem to update into the child models
+    this.selectedItem.subscribe(function(value) {
+        if (value == undefined) return;
+
+        // deselect everything
+        ko.utils.arrayForEach(self.itemsObservables(),function(item) {
+            item.isSelected(false);
+        });
+
+        // set new selection to isSelected
+        self.itemsObservables()[value].isSelected(true);
+
+        self.selectGalleryItem(value);
+    });
 
     // create instance of Scrollable viewmodel
     this.scrollable = new site.models.ScrollableArea();
+
+    // init function for viewmodel which is passed the elements of the gallery image list
+    this.init = function(data) {
+
+        ko.utils.arrayForEach(data,function(item) {
+            self.itemsObservables.push(new site.models.GalleryItem(item));
+        });
+
+        this.selectedItem(0);
+    }
+
+    // utility function to capture click on a controller item and select the relevant gallery image
+    this.select = function(e) {
+        var index = self.getSelectedIndex(e.target);
+        self.selectedItem(index);
+
+        e.preventDefault();
+    }
+
+    // function placeholders to be filled in using framework of choice
+    this.getSelectedIndex = null;
+    this.selectGalleryItem = null;
+}
+
+// define GalleryItem viewmodel
+site.models.GalleryItem = function(el) {
+    this.isSelected = ko.observable(false);
+    this.src = ko.observable(el.src);
+    this.caption = ko.observable(el.alt);
 }
 
 // define Scrollable viewmodel
@@ -99,6 +143,35 @@ site.models.ScrollableArea = function() {
 // using jQuery for convenience but any other JS library or plain onload function would also be fine
 $(function() {
 
+    // create viewModel instance
     var viewModel = new site.models.Gallery();
+    var gallery = $('ul.gallery');
+    var controller = $('div.controller');
+    var selectedClass = 'selected';
+    var measureContent = function() {
+        var val = controller.find('li').width();
+
+        return val * controller.find('li').length;
+    }
+
+    // fill in undefined functions with framework-specific methods
+    viewModel.getSelectedIndex = function(el) {
+        return $(el).closest('li').index();
+    }
+    viewModel.selectGalleryItem = function(index) {
+        gallery.find('li.'+selectedClass).removeClass(selectedClass);
+        gallery.find('li:eq('+index+')').addClass(selectedClass);
+    }
+
+    // initialise with a set of DOM elements
+    viewModel.init($('ul.gallery li img'));
+
+    // bind to DOM
+    ko.applyBindings(viewModel,$('body').get(0));
+
+    // set viewmodel parameters measured from DOM
+    // call after binding for accurate measurement
+    viewModel.scrollable.scrollThreshold(controller.width());
+    viewModel.scrollable.contentSize(measureContent());
 
 });

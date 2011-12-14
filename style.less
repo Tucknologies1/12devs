@@ -3,12 +3,9 @@
 @grid_width: 945px;
 @base_font_size: 16;
 
-@main_bg: #000;
-@accent: #fff;
 @highlight: #ff9;
-@button: #ff9;
 
-@font_stack: 'Trebuchet MS', Arial, sans-serif;
+@font_stack: Arial, sans-serif;
 
 // mixins
 
@@ -43,4 +40,67 @@
 
 body {
     font-family: sans-serif;
+    font-size: 1em;
+}
+
+ul.gallery {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    
+    li {
+        display: none;
+
+        &.selected {
+            display: block;
+        }
+    }
+
+}
+
+div.controller {
+
+    overflow: hidden;
+    width: 800px;
+    height: 125px;
+    position: relative;
+
+    background-color: rgba(255,0,0,0.1);
+
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        overflow: hidden;
+        position: absolute;
+    }
+    li {
+
+        float: left;
+        width: 150px;
+        padding: 5px;
+        cursor: pointer;
+
+        .bb;
+        
+        &.selected {
+            background-color: @highlight;
+        }
+
+        span {
+            .fs(12);
+        }
+    }
+
+    button {
+        position: absolute;
+        top: 0;
+
+        &[data-direction=left] {
+            left: 0;
+        }
+        &[data-direction=right] {
+            right: 0;
+        }
+    }
 }
