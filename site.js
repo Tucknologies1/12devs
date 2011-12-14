@@ -1,7 +1,20 @@
-/**
- * Created by JetBrains PhpStorm.
- * User: stephen
- * Date: 14/12/2011
- * Time: 07:33
- * To change this template use File | Settings | File Templates.
- */
+// create namespace
+var site = { models: { } };
+
+
+// define Gallery viewmodel
+site.models.Gallery = function() {
+    // create self reference for use inside functions
+    var self = this;
+
+    this.itemsObservables = ko.observableArray();
+}
+
+
+
+// using jQuery for convenience but any other JS library or plain onload function would also be fine
+$(function() {
+
+    var viewModel = new site.models.Gallery();
+
+});

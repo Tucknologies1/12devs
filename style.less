@@ -1,0 +1,46 @@
+// LESS stuff
+
+@grid_width: 945px;
+@base_font_size: 16;
+
+@main_bg: #000;
+@accent: #fff;
+@highlight: #ff9;
+@button: #ff9;
+
+@font_stack: 'Trebuchet MS', Arial, sans-serif;
+
+// mixins
+
+.fs(@px:12,@base: @base_font_size) {
+    @var: (@px/@base) * 100%;
+    font-size: @var;
+}
+.w(@px:100,@w: @grid_width) {
+    @var: (@px/@w) * 100%;
+    width: @var;
+}
+.m(@t:0,@r:0,@b:0,@l:0,@w: @grid_width) {
+    @tvar: (@t/@w) * 100%;
+    @rvar: (@r/@w) * 100%;
+    @bvar: (@b/@w) * 100%;
+    @lvar: (@l/@w) * 100%;
+    margin: @tvar @rvar @bvar @lvar;
+}
+
+.bb(@params: border-box) {
+    box-sizing: @params;
+    -moz-box-sizing: @params;
+}
+
+.br(@r: 5px) {
+    border-radius: @r;
+    -webkit-border-radius: @r;
+    -moz-border-radius: @r;
+}
+
+// real CSS
+
+body {
+    font-family: sans-serif;
+}
