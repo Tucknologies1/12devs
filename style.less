@@ -1,11 +1,10 @@
 // LESS stuff
 
-@grid_width: 945px;
 @base_font_size: 16;
 
-@highlight: #ff9;
-
-@font_stack: Arial, sans-serif;
+@highlight: #fc6;
+@button: #c00;
+@head: #333;
 
 // mixins
 
@@ -13,27 +12,9 @@
     @var: (@px/@base) * 100%;
     font-size: @var;
 }
-.w(@px:100,@w: @grid_width) {
-    @var: (@px/@w) * 100%;
-    width: @var;
-}
-.m(@t:0,@r:0,@b:0,@l:0,@w: @grid_width) {
-    @tvar: (@t/@w) * 100%;
-    @rvar: (@r/@w) * 100%;
-    @bvar: (@b/@w) * 100%;
-    @lvar: (@l/@w) * 100%;
-    margin: @tvar @rvar @bvar @lvar;
-}
-
 .bb(@params: border-box) {
     box-sizing: @params;
     -moz-box-sizing: @params;
-}
-
-.br(@r: 5px) {
-    border-radius: @r;
-    -webkit-border-radius: @r;
-    -moz-border-radius: @r;
 }
 
 // real CSS
@@ -41,21 +22,27 @@
 body {
     font-family: sans-serif;
     font-size: 1em;
+    margin: 10px;
 }
 
-ul.gallery {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    
-    li {
-        display: none;
+div.head {
+    position: absolute;
+    top: 10px;
+    background-color: fadeout(@head,60);
+    padding: 10px;
 
-        &.selected {
-            display: block;
-        }
+    h1, h2 {
+        margin: 0;
+        color: #fff;
+        .fs(18);
     }
+    h2 {
+        .fs(14);
+    }
+}
 
+ul.origin {
+    display: none;
 }
 
 div.controller {
@@ -64,8 +51,6 @@ div.controller {
     width: 800px;
     height: 125px;
     position: relative;
-
-    background-color: rgba(255,0,0,0.1);
 
     ul {
         margin: 0;
@@ -78,7 +63,6 @@ div.controller {
 
         float: left;
         width: 150px;
-        padding: 5px;
         cursor: pointer;
 
         .bb;
@@ -87,8 +71,13 @@ div.controller {
             background-color: @highlight;
         }
 
+        img {
+            margin: 5px;
+        }
         span {
             .fs(12);
+            display: block;
+            padding: 0 5px 5px;
         }
     }
 
@@ -96,11 +85,32 @@ div.controller {
         position: absolute;
         top: 0;
 
+        width: 20px;
+        height: 125px;
+        padding: 0;
+
+        background-color: fadeout(@button,50);
+        border: none;
+
+        cursor: pointer;
+
+        &:hover {
+            background-color: fadeout(@button,20);
+        }
+
         &[data-direction=left] {
             left: 0;
         }
         &[data-direction=right] {
             right: 0;
         }
+
+        &[disabled] {
+            background-color: fadeout(@head,80);
+        }
     }
+}
+
+button.more {
+    margin: 1em 0;
 }

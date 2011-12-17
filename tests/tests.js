@@ -1,6 +1,6 @@
 module("Main Model", {
     setup: function() {
-        this.testDOM = $('#qunit-fixture ul.gallery');
+        this.testDOM = $('#qunit-fixture ul.origin');
     }
 });
 
@@ -16,17 +16,27 @@ test("When initialising content in Gallery viewmodel", function() {
     var Gallery = new site.models.Gallery();
     var scrollable = Gallery.scrollable;
 
-    Gallery.init(this.testDOM.find('li img'));
+    Gallery.init(this.testDOM.find('li a'));
 
-    equal(Gallery.itemsObservables().length, 8, "there should be 8 values in itemsObservables");
+    var Items = Gallery.itemsObservables();
+
+    equal(Items.length, 8, "there should be 8 values in itemsObservables");
     equal(Gallery.selectedItem(), 0, "the first item should be selected");
+
+    var src = Items[0].src().split('/')[Items[0].src().split('/').length -1];
+
+    equal(Items[0].isSelected(),true,"the first item in the itemsObservables should be selected");
+    equal(src,'1.jpg',"the first item in the itemsObservables should have the correct src");
+    equal(Items[0].caption(),'Image 1 Caption',"the first item in the itemsObservables should have the correct caption");
+
+    equal(Items[1].isSelected(),false,"the second item in the itemsObservables should not be selected");
 });
 
 test("When directly selecting an item in a Gallery viewmodel", function() {
     var Gallery = new site.models.Gallery();
     var scrollable = Gallery.scrollable;
 
-    Gallery.init(this.testDOM.find('li img'));
+    Gallery.init(this.testDOM.find('li a'));
     Gallery.selectedItem(1);
 
     equal(Gallery.selectedItem(), 1, "the second item should be selected");
