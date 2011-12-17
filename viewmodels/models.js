@@ -37,7 +37,9 @@ site.models.Gallery = function() {
             self.itemsObservables.push(new site.models.GalleryItem(item));
         });
 
-        this.selectedItem(0);
+        if (this.selectedItem() == undefined) {
+            this.selectedItem(0);
+        }
     }
 
     // utility function to capture click on a controller item and select the relevant gallery image
