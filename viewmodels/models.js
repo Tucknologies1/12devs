@@ -33,6 +33,7 @@ site.models.Gallery = function() {
     // init function for viewmodel which is passed the elements of the gallery image list
     this.init = function(data) {
 
+        // knockout utility function to loop through our data
         ko.utils.arrayForEach(data,function(item) {
             self.itemsObservables.push(new site.models.GalleryItem(item));
         });
