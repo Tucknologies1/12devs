@@ -66,8 +66,8 @@ site.models.Gallery = function() {
 // define GalleryItem viewmodel
 site.models.GalleryItem = function(el) {
     this.isSelected = ko.observable(false);
-    this.src = ko.observable(el.href);
-    this.caption = ko.observable(el.innerHTML);
+    this.src = el.href;
+    this.caption = el.innerHTML;
 }
 
 // define Scrollable viewmodel
