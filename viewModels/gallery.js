@@ -26,7 +26,7 @@ site.models.Gallery = function() {
 
         // only make a default selection on the first init, otherwise preserve whatever is selected
         if (!update) {
-            this.itemsObservables()[0].isSelected(true);
+            this.setSelected(this.itemsObservables()[0]);
         }
     }
 
@@ -35,13 +35,18 @@ site.models.Gallery = function() {
         // get selected item by calling dataFor with event target node
         var newSelection = ko.dataFor(e.target);
 
+        // call independent setSelected method
+        self.setSelected(newSelection);
+
+        // cancel original event
+        e.preventDefault();
+    }
+
+    this.setSelected = function(newSelection) {
         // loop through and set appropriate selection
         ko.utils.arrayForEach(self.itemsObservables(),function(item) {
             item.isSelected(item == newSelection);
         });
-
-        // cancel original event
-        e.preventDefault();
     }
 
     // handle demo of adding more items

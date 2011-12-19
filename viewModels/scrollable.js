@@ -1,3 +1,5 @@
+var site = site || { models: { } };
+
 // define Scrollable viewmodel
 site.models.ScrollableArea = function() {
     // create self reference for use inside functions
