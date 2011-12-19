@@ -29,7 +29,7 @@
     </ul>
 
     <div class="gallery" data-bind="foreach: itemsObservables">
-        <div class="item"><img width="800" height="533" data-bind="attr: { 'src': src, 'alt': caption }, visible: isSelected" /></div>
+        <div class="item" data-bind="visible: isSelected"><img width="800" height="533" data-bind="attr: { 'src': src, 'alt': caption }" /></div>
     </div>
 
     <div class="controller">

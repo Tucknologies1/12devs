@@ -5,9 +5,6 @@ $(function() {
     var controller = $('div.controller');
 
     // fill in undefined functions with framework-specific methods
-    viewModel.getSelectedIndex = function(el) {
-        return $(el).closest('li').index();
-    }
     // utility function to measure content area using framework-specific methods
     viewModel.measureContent = function() {
         var val = controller.find('li').width();

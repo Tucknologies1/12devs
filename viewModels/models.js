@@ -6,55 +6,46 @@ site.models.Gallery = function() {
     // create self reference for use inside functions
     var self = this;
 
+    // observable array to hold our gallery items
     this.itemsObservables = ko.observableArray();
-    this.selectedItem = ko.observable();
 
-    // create a subscriber to selectedItem to update into the child models
-    this.selectedItem.subscribe(function(value) {
-        if (value == undefined) return;
-
-        // deselect everything
-        ko.utils.arrayForEach(self.itemsObservables(),function(item) {
-            item.isSelected(false);
-        });
-
-        // set new selection to isSelected
-        self.itemsObservables()[value].isSelected(true);
-
-    });
-
-    // function placeholders to be filled in using framework of choice
-    this.getSelectedIndex = null;
+    // function placeholder to be filled in using framework of choice
     this.measureContent = null;
 
     // create instance of Scrollable viewmodel
     this.scrollable = new site.models.ScrollableArea();
 
     // init function for viewmodel which is passed the elements of the gallery image list
-    this.init = function(data) {
+    this.init = function(data,update) {
 
         // knockout utility function to loop through our data
         ko.utils.arrayForEach(data,function(item) {
             self.itemsObservables.push(new site.models.GalleryItem(item));
         });
 
-        if (this.selectedItem() == undefined) {
-            this.selectedItem(0);
+        if (!update) {
+            this.itemsObservables()[0].isSelected(true);
         }
     }
 
     // utility function to capture click on a controller item and select the relevant gallery image
     this.select = function(e) {
-        var index = self.getSelectedIndex(e.target);
-        self.selectedItem(index);
+        // get selected item by calling dataFor with event target node
+        var newSelection = ko.dataFor(e.target);
 
+        // loop through and set appropriate selection
+        ko.utils.arrayForEach(self.itemsObservables(),function(item) {
+            item.isSelected(item == newSelection);
+        });
+
+        // cancel original event
         e.preventDefault();
     }
 
     // handle demo of adding more items
     this.moreAdded = ko.observable(false);
     this.more = function(e) {
-        self.init($('ul.second a'));
+        self.init($('ul.second a'),true);
         self.moreAdded(true);
         if (self.measureContent) {
             self.scrollable.contentSize(self.measureContent());
