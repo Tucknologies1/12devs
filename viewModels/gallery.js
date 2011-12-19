@@ -16,6 +16,7 @@ site.models.Gallery = function() {
     this.scrollable = new site.models.ScrollableArea();
 
     // init function for viewmodel which is passed the elements of the gallery image list
+    // update argument should be set to true if adding further data after first init
     this.init = function(data,update) {
 
         // knockout utility function to loop through our data
@@ -23,6 +24,7 @@ site.models.Gallery = function() {
             self.itemsObservables.push(new site.models.GalleryItem(item));
         });
 
+        // only make a default selection on the first init, otherwise preserve whatever is selected
         if (!update) {
             this.itemsObservables()[0].isSelected(true);
         }
