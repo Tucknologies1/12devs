@@ -9,12 +9,6 @@ site.models.Gallery = function() {
     // observable array to hold our gallery items
     this.itemsObservables = ko.observableArray();
 
-    // function placeholder to be filled in using framework of choice
-    this.measureContent = null;
-
-    // create instance of Scrollable viewmodel
-    this.scrollable = new site.models.ScrollableArea();
-
     // init function for viewmodel which is passed the elements of the gallery image list
     // update argument should be set to true if adding further data after first init
     this.init = function(data,update) {
@@ -47,17 +41,6 @@ site.models.Gallery = function() {
         ko.utils.arrayForEach(self.itemsObservables(),function(item) {
             item.isSelected(item == newSelection);
         });
-    }
-
-    // handle demo of adding more items
-    this.moreAdded = ko.observable(false);
-    this.more = function(e) {
-        self.init($('ul.second a'),true);
-        self.moreAdded(true);
-        if (self.measureContent) {
-            self.scrollable.contentSize(self.measureContent());
-        }
-        e.preventDefault();
     }
 }
 

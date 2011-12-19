@@ -20,18 +20,11 @@ div.head h2 {
 body.js ul.origin {
   display: none;
 }
-div.controller {
-  overflow: hidden;
-  width: 800px;
-  height: 125px;
-  position: relative;
-}
 div.controller ul {
   margin: 0;
   padding: 0;
   list-style: none;
   overflow: hidden;
-  position: absolute;
 }
 div.controller li {
   float: left;
@@ -51,33 +44,9 @@ div.controller li span {
   display: block;
   padding: 0 5px 5px;
 }
-div.controller button {
-  position: absolute;
-  top: 0;
-  width: 20px;
-  height: 125px;
-  padding: 0;
-  background-color: rgba(204, 0, 0, 0.5);
-  border: none;
-  cursor: pointer;
-}
-div.controller button:hover {
-  background-color: rgba(204, 0, 0, 0.8);
-}
-div.controller button[data-direction=left] {
-  left: 0;
-}
-div.controller button[data-direction=right] {
-  right: 0;
-}
-div.controller button[disabled] {
-  background-color: rgba(51, 51, 51, 0.19999999999999996);
-}
-button.more {
-  margin: 1em 0;
-}
 small {
   display: block;
   font-size: 75%;
   color: #333333;
+  margin-top: 1em;
 }

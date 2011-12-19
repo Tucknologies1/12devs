@@ -49,17 +49,11 @@ body.js {
 
 div.controller {
 
-    overflow: hidden;
-    width: 800px;
-    height: 125px;
-    position: relative;
-
     ul {
         margin: 0;
         padding: 0;
         list-style: none;
         overflow: hidden;
-        position: absolute;
     }
     li {
 
@@ -82,43 +76,11 @@ div.controller {
             padding: 0 5px 5px;
         }
     }
-
-    button {
-        position: absolute;
-        top: 0;
-
-        width: 20px;
-        height: 125px;
-        padding: 0;
-
-        background-color: fadeout(@button,50);
-        border: none;
-
-        cursor: pointer;
-
-        &:hover {
-            background-color: fadeout(@button,20);
-        }
-
-        &[data-direction=left] {
-            left: 0;
-        }
-        &[data-direction=right] {
-            right: 0;
-        }
-
-        &[disabled] {
-            background-color: fadeout(@head,80);
-        }
-    }
-}
-
-button.more {
-    margin: 1em 0;
 }
 
 small {
     display: block;
     .fs(12);
     color: @head;
+    margin-top: 1em;
 }
