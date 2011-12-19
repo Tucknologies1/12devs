@@ -23,11 +23,11 @@ test("When initialising content in Gallery viewmodel", function() {
     equal(Items.length, 8, "there should be 8 values in itemsObservables");
     equal(Gallery.selectedItem(), 0, "the first item should be selected");
 
-    var src = Items[0].src().split('/')[Items[0].src().split('/').length -1];
+    var src = Items[0].src.split('/')[Items[0].src.split('/').length -1];
 
     equal(Items[0].isSelected(),true,"the first item in the itemsObservables should be selected");
     equal(src,'1.jpg',"the first item in the itemsObservables should have the correct src");
-    equal(Items[0].caption(),'Image 1 Caption',"the first item in the itemsObservables should have the correct caption");
+    equal(Items[0].caption,'Image 1 Caption',"the first item in the itemsObservables should have the correct caption");
 
     equal(Items[1].isSelected(),false,"the second item in the itemsObservables should not be selected");
 });
