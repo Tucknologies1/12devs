@@ -31,13 +31,9 @@ site.models.Gallery = function() {
     }
 
     // utility function to capture click on a controller item and select the relevant gallery image
-    this.select = function(e) {
-        // get selected item by calling dataFor with event target node
-        var newSelection = ko.dataFor(e.target);
-
+    this.select = function(data,e) {
         // call independent setSelected method
-        self.setSelected(newSelection);
-
+        self.setSelected(data);
         // cancel original event
         e.preventDefault();
     }
@@ -51,7 +47,7 @@ site.models.Gallery = function() {
 
     // handle demo of adding more items
     this.moreAdded = ko.observable(false);
-    this.more = function(e) {
+    this.more = function(data,e) {
         self.init($('ul.second a'),true);
         self.moreAdded(true);
         if (self.measureContent) {
