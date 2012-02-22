@@ -7,20 +7,12 @@ site.models.ScrollableArea = function() {
 
     this.scrollThreshold = ko.observable(0); // total width of content area
     this.contentSize = ko.observable(0); // measured width of all content items
-
     this.scrollValue = ko.observable(0); // where the content should be scrolled to
-    this.scrollInitTo = ko.observable('left'); // should the content scroll to left or right when it becomes scrollable
-
     this.scrollClickStep = ko.observable(400);
 
     this.isScrollable = ko.computed(function () {
-        if (self.contentSize() > self.scrollThreshold()) {
-            self.scrollValue((self.scrollInitTo() == 'right') ? self.scrollThreshold() - self.contentSize() : 0);
-            return true;
-        } else {
-            self.scrollValue(0);
-            return false;
-        }
+        self.scrollValue(0);
+        return self.contentSize() > self.scrollThreshold();
     });
     this.calculatedScrollValue = ko.computed({
         read: function () {
@@ -30,20 +22,15 @@ site.models.ScrollableArea = function() {
             self.scrollValue(value);
         }
     });
-    this.canScrollLeft = ko.computed({
-        read: function () {
-            return (self.isScrollable()) ? (self.calculatedScrollValue() != 0) : false;
-        }
+    this.canScrollLeft = ko.computed(function () {
+        return (self.isScrollable()) ? (self.calculatedScrollValue() != 0) : false;
     });
-    this.canScrollRight = ko.computed({
-        read: function () {
-            var offset = self.scrollThreshold() - self.contentSize();
-            return (self.isScrollable()) ? (self.scrollValue() != offset) : false;
-        }
+    this.canScrollRight = ko.computed(function () {
+        var offset = self.scrollThreshold() - self.contentSize();
+        return (self.isScrollable()) ? (self.scrollValue() != offset) : false;
     });
 
     this.scrollContent = function (data,e) {
-
         var direction = e.target.getAttribute('data-direction');
         var newCalculatedScrollValue;
 
@@ -56,7 +43,6 @@ site.models.ScrollableArea = function() {
         }
 
         self.calculatedScrollValue(newCalculatedScrollValue);
-
         e.preventDefault();
     };
 }

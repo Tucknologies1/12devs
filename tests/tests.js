@@ -48,7 +48,6 @@ test("When initialising scrollableArea UI scrolling values", function() {
     equal(scrollableArea.isScrollable(), false, " scrollableArea isScrollable should initially be false");
     equal(scrollableArea.canScrollLeft(), false, " scrollableArea canScrollLeft should initially be false");
     equal(scrollableArea.canScrollRight(), false, " scrollableArea canScrollRight should initially be false");
-    equal(scrollableArea.scrollInitTo(), "left", " scrollableArea scrollInit should initially be 'left'");
     equal(scrollableArea.scrollThreshold(), 0, " scrollableArea scrollThreshold should initially be 0");
     equal(scrollableArea.scrollValue(), 0, " scrollableArea scrollValue should initially be 0");
     equal(scrollableArea.calculatedScrollValue(), 0, " scrollableArea calculatedScrollValue should initially be 0");
@@ -85,22 +84,6 @@ test("When changing the size of the content when scrollInitTo is 'left' (default
     equal(scrollableArea.canScrollRight(), false, " scrollableArea canScrollRight should be set to false");
     equal(scrollableArea.scrollValue(), 0, " scrollableArea scrollValue should be set to 0");
     equal(scrollableArea.calculatedScrollValue(), 0, " scrollableArea calculatedScrollValue should be set to 0");
-});
-
-test("When changing the size of the content when scrollInitTo is 'right'", function () {
-    var scrollableArea = new site.models.ScrollableArea(true);
-    scrollableArea.measureContent = function () { return 0; };
-
-    scrollableArea.scrollInitTo('right');
-    scrollableArea.scrollThreshold(980);
-    scrollableArea.contentSize(1000);
-
-    equal(scrollableArea.contentSize(), 1000, " scrollableArea contentSize should be updated to 1000");
-    equal(scrollableArea.isScrollable(), true, " scrollableArea isScrollable should be set to true");
-    equal(scrollableArea.canScrollLeft(), true, " scrollableArea canScrollLeft should be set to true");
-    equal(scrollableArea.canScrollRight(), false, " scrollableArea canScrollRight should be set to false");
-    equal(scrollableArea.scrollValue(), -20, " scrollableArea scrollValue should be set to -20");
-    equal(scrollableArea.calculatedScrollValue(), -20, " scrollableArea calculatedScrollValue should be set to -20");
 });
 
 test("When writing to the calculated scroll value", function () {
