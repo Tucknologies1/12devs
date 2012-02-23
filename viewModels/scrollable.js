@@ -11,7 +11,6 @@ site.models.ScrollableArea = function() {
     this.scrollClickStep = ko.observable(400);
 
     this.isScrollable = ko.computed(function () {
-        self.scrollValue(0);
         return self.contentSize() > self.scrollThreshold();
     });
     this.calculatedScrollValue = ko.computed({
