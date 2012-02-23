@@ -9,4 +9,4 @@ Branches
 * master - the extent of the demo as covered by the article
 * extended -
   * was: some extra stuff that would have made the article much longer.
-  * now: some extra stuff for a revised article for .net magazine
+  * now: some extra stuff for a revised and expanded article for .net magazine
